@@ -25,3 +25,6 @@ for page in $(cd www/raw && ls *.[1-9]*); do
         rm -f "$new"
     fi
 done
+
+cp -f dist/schemeorg.css www/
+gosh -I lib lib/generate-index.scm

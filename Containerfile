@@ -12,7 +12,7 @@ RUN make PREFIX=/usr/local install
 
 FROM debian:bullseye
 RUN apt-get update && apt-get -y --no-install-recommends install \
-      groff libelk0 \
+      gauche groff libelk0 \
  && rm -rf /var/lib/apt/lists/*
 COPY --from=build /usr/local/ /usr/local/
 WORKDIR /work

@@ -32,3 +32,7 @@ download gambit.tar.gz \
 
 download stklos.tar.gz \
     https://stklos.net/download/stklos-1.70.tar.gz
+
+##
+
+download schemeorg.css https://www.scheme.org/schemeorg.css
