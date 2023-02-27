@@ -31,7 +31,7 @@
   (string-append (script-directory) "../"))
 
 (define roff-directory
-  (string-append root-directory "www/raw/"))
+  (string-append root-directory "www/"))
 
 ;;
 
@@ -61,17 +61,40 @@
 (define (map-section-pages proc section)
   (let ((exts (map (lambda (sub) (string-append "." section sub))
                    (cons "" subsections))))
-    (filter-map
+    (append-map
      (lambda (name)
-       (and (not (string-prefix? "." name))
-            (let ((ext (find (lambda (ext) (string-suffix? ext name))
-                             exts)))
-              (and ext
-                   (let ((page (string-drop-right name (string-length ext))))
-                     (proc page ext))))))
+       (if (string-prefix? "." name)
+           '()
+           (let ((ext (find (lambda (ext) (string-suffix? ext name))
+                            exts)))
+             (if (not ext)
+                 '()
+                 (let ((page (string-drop-right name (string-length ext))))
+                   (list (proc page ext)))))))
      (directory-files (section-roff-directory section)))))
 
 ;;
+
+(define (url-encode string unsafe)
+  (call-with-port (open-output-string)
+    (lambda (out)
+      (string-for-each
+       (lambda (char)
+         (if (not (string-index unsafe char))
+             (write-char char out)
+             (write-string
+              (let ((hex (string-upcase
+                          (number->string (char->integer char) 16))))
+                (if (= 2 (string-length hex))
+                    (string-append "%" hex)
+                    (string-append "%0" hex)))
+              out)))
+       string)
+      (get-output-string out))))
+
+(define (page-url page ext)
+  (string-append (url-encode page "?")
+                 ext))
 
 (define (section->html section)
   `(section
@@ -79,7 +102,7 @@
     (ul
      ,@(map-section-pages
         (lambda (page ext)
-          `(li (a (@ (href ,(string-append page ext)))
+          `(li (a (@ (href ,(page-url page ext)))
                   ,page)))
         section))))
 
