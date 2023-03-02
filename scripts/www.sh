@@ -2,18 +2,7 @@
 set -eu -o pipefail
 cd "$(dirname "$0")"
 cd ..
-echo "Entering directory '$PWD'"
-
-mkdir -p dist/scheme-manpages
-tar -C dist/scheme-manpages \
-    -xf dist/scheme-manpages.tar.gz \
-    --wildcards '*/man[1-9]/*'
-
-for section in 1 2 3 4 5 6 7 8 9; do
-    mkdir -p "man${section}"
-    find dist -type f -name "*.${section}*" | xargs -I x mv x "man${section}/"
-done
-
+scripts/man.sh
 mkdir -p www
 find www -mindepth 1 -delete
 mkdir -p www/raw
