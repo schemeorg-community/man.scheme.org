@@ -27,8 +27,14 @@ download scheme-manpages.tar.gz \
 
 ##
 
+download chibi-scheme.tar.gz \
+    https://files.scheme.org/chibi-scheme-0.9.1.tgz
+
 download gambit.tar.gz \
     https://gambitscheme.org/latest/gambit-v4_9_4.tgz
+
+download gauche.tar.gz \
+    https://files.scheme.org/Gauche-0.9.9.tgz
 
 download stklos.tar.gz \
     https://stklos.net/download/stklos-1.70.tar.gz
