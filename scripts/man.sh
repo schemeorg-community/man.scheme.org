@@ -26,6 +26,16 @@ $TAR -C dist/gauche \
     -xf dist/gauche.tar.gz \
     --wildcards '*/doc/*.[1-9].in'
 
+mkdir -p dist/guile
+$TAR -C dist/guile \
+    -xf dist/guile.tar.gz \
+    --wildcards '*/doc/*.[1-9]'
+
+mkdir -p dist/kawa
+$TAR -C dist/kawa \
+    -xf dist/kawa.tar.gz \
+    --wildcards '*/doc/*.man'
+
 mkdir -p dist/stklos
 $TAR -C dist/stklos \
     -xf dist/stklos.tar.gz \
@@ -34,6 +44,12 @@ $TAR -C dist/stklos \
 for section in 1 2 3 4 5 6 7 8 9; do
     mkdir -p "man${section}"
     find dist -type f -name "*.${section}*" | xargs -I x mv x "man${section}/"
+done
+find dist -type f -name "*.man" | xargs -I x mv x "man1/"
+
+for page_man in man*/*.man; do
+    page="$(echo "$page_man" | sed 's/.man$/.1/')"
+    mv -f "$page_man" "$page"
 done
 
 for page_in in man*/*.[1-9].in; do

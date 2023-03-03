@@ -36,6 +36,12 @@ download gambit.tar.gz \
 download gauche.tar.gz \
     https://files.scheme.org/Gauche-0.9.9.tgz
 
+download guile.tar.gz \
+    https://ftp.gnu.org/gnu/guile/guile-3.0.9.tar.gz
+
+download kawa.tar.gz \
+    http://ftp.gnu.org/pub/gnu/kawa/kawa-3.1.1.tar.gz
+
 download stklos.tar.gz \
     https://stklos.net/download/stklos-1.70.tar.gz
 
