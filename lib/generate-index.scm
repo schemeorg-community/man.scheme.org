@@ -36,9 +36,9 @@
 ;;
 
 (define section-entries
-  '(("1" "General commands")
-    ("3" "Library functions")
-    ("7" "Miscellaneous information")))
+  '(("1" "Commands")
+    ("3" "Library")
+    ("7" "Miscellaneous")))
 
 (define subsections
   '("scm"))
